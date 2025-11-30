@@ -1,0 +1,924 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Royal Birthday</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- Google Fonts for royal / old-school vibe -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Playfair+Display:wght@500;700&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --royal-purple: #2b1348;
+      --royal-purple-dark: #180825;
+      --royal-gold: #f5d07a;
+      --royal-gold-deep: #c89b3c;
+      --cream: #f7f0e6;
+      --text-light: #f9f4ff;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #4c2a92 0, #180825 55%, #050308 100%);
+      color: var(--text-light);
+      min-height: 100vh;
+      display: flex;
+      align-items: stretch;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .app {
+      position: relative;
+      width: 100%;
+      max-width: 600px;
+      height: 100vh;
+      max-height: 1000px;
+      margin: auto;
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 0 40px rgba(0, 0, 0, 0.6);
+      background: radial-gradient(circle at top, #3b1c64 0, #120417 55%, #07020d 100%);
+    }
+
+    .screen {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 24px 20px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.6s ease;
+      text-align: center;
+    }
+
+    .screen.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    h1,
+    h2,
+    h3 {
+      font-family: "Cinzel", "Playfair Display", serif;
+      letter-spacing: 0.08em;
+    }
+
+    .royal-frame {
+      position: absolute;
+      inset: 16px;
+      border-radius: 20px;
+      border: 2px solid rgba(245, 208, 122, 0.4);
+      pointer-events: none;
+    }
+
+    .subtle-glow {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at top, rgba(245, 208, 122, 0.16), transparent 60%);
+      pointer-events: none;
+    }
+
+    .primary-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 24px;
+      padding: 12px 28px;
+      border-radius: 999px;
+      border: none;
+      background: linear-gradient(135deg, var(--royal-gold), var(--royal-gold-deep));
+      color: #2b1348;
+      font-weight: 600;
+      font-size: 0.98rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      cursor: pointer;
+      box-shadow: 0 8px 22px rgba(0, 0, 0, 0.5);
+      transition: transform 0.15s ease, box-shadow 0.15s ease, filter 0.15s ease;
+    }
+
+    .primary-btn:hover {
+      transform: translateY(-1px);
+      filter: brightness(1.05);
+      box-shadow: 0 10px 26px rgba(0, 0, 0, 0.6);
+    }
+
+    .primary-btn:active {
+      transform: translateY(1px) scale(0.98);
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.7);
+    }
+
+    .hint {
+      margin-top: 14px;
+      font-size: 0.85rem;
+      opacity: 0.8;
+    }
+
+    /* -------- Screen 1: Intro -------- */
+
+    #screen-intro h1 {
+      font-size: 1.6rem;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
+    #screen-intro h2 {
+      font-size: 1.1rem;
+      font-weight: 400;
+      opacity: 0.9;
+      margin-bottom: 12px;
+    }
+
+    .tiny-line {
+      width: 60px;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--royal-gold), transparent);
+      margin: 10px auto 18px auto;
+    }
+
+    /* Sparkles */
+    .sparkles {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .sparkle {
+      position: absolute;
+      background: radial-gradient(circle, #fff 0%, var(--royal-gold) 60%, transparent 100%);
+      border-radius: 50%;
+      opacity: 0;
+      animation: sparkle 4s infinite ease-in-out;
+      box-shadow: 0 0 5px var(--royal-gold);
+    }
+
+    .sparkle:nth-child(1) {
+      top: 15%;
+      left: 15%;
+      width: 4px;
+      height: 4px;
+      animation-delay: 0s;
+      animation-duration: 3s;
+    }
+
+    .sparkle:nth-child(2) {
+      top: 25%;
+      right: 20%;
+      width: 6px;
+      height: 6px;
+      animation-delay: 1.5s;
+      animation-duration: 4s;
+    }
+
+    .sparkle:nth-child(3) {
+      bottom: 30%;
+      left: 25%;
+      width: 3px;
+      height: 3px;
+      animation-delay: 2.5s;
+      animation-duration: 3.5s;
+    }
+
+    .sparkle:nth-child(4) {
+      bottom: 20%;
+      right: 15%;
+      width: 5px;
+      height: 5px;
+      animation-delay: 0.5s;
+      animation-duration: 4.5s;
+    }
+
+    .sparkle:nth-child(5) {
+      top: 10%;
+      left: 50%;
+      width: 4px;
+      height: 4px;
+      animation-delay: 3s;
+      animation-duration: 5s;
+    }
+
+    .sparkle:nth-child(6) {
+      top: 60%;
+      left: 80%;
+      width: 3px;
+      height: 3px;
+      animation-delay: 1s;
+      animation-duration: 3.2s;
+    }
+
+    .sparkle:nth-child(7) {
+      top: 80%;
+      left: 10%;
+      width: 5px;
+      height: 5px;
+      animation-delay: 2s;
+      animation-duration: 4.2s;
+    }
+
+    @keyframes sparkle {
+
+      0%,
+      100% {
+        opacity: 0;
+        transform: scale(0);
+      }
+
+      50% {
+        opacity: 1;
+        transform: scale(1.5);
+      }
+    }
+
+    /* -------- Screen 2: Cake / Candles -------- */
+
+    #screen-cake {
+      gap: 30px;
+      perspective: 1000px;
+    }
+
+    .countdown-text {
+      font-family: "Cinzel", serif;
+      font-size: 1.2rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--royal-gold);
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+    }
+
+    .cake-wrapper {
+      margin-top: 20px;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      width: 100%;
+      height: 300px;
+      position: relative;
+    }
+
+    .cake {
+      position: relative;
+      width: 200px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      /* Entrance animation */
+      animation: cakeEntrance 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards,
+        cakeFloat 4s ease-in-out infinite 1.2s;
+      transform-style: preserve-3d;
+    }
+
+    @keyframes cakeEntrance {
+      from {
+        opacity: 0;
+        transform: translateY(100px) scale(0.8);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    @keyframes cakeFloat {
+
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(-10px);
+      }
+    }
+
+    /* Common Layer Styles */
+    .cake-layer {
+      position: relative;
+      background: linear-gradient(to right, #eacda3, #d6ae7b);
+      /* Sponge color base */
+      border-radius: 10px;
+      box-shadow:
+        inset 0 0 20px rgba(0, 0, 0, 0.1),
+        5px 5px 15px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Frosting Drips */
+    .cake-layer::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 25px;
+      background: linear-gradient(to bottom, #fff0f5 60%, transparent);
+      background-size: 20px 40px;
+      background-repeat: repeat-x;
+      border-radius: 10px 10px 50% 50%;
+      mask-image: radial-gradient(circle at 10px 0, black 10px, transparent 11px),
+        linear-gradient(to bottom, black 10px, transparent 10px);
+      mask-size: 20px 20px;
+      mask-repeat: repeat-x;
+      /* Simplified frosting look for better compatibility */
+      background:
+        radial-gradient(circle at 50% 100%, #fff0f5 8px, transparent 9px) 0 0 / 20px 20px repeat-x,
+        linear-gradient(#fff0f5, #fff0f5);
+      background-size: 20px 15px, 100% 10px;
+      background-position: 0 10px, 0 0;
+      background-repeat: repeat-x, no-repeat;
+      filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.1));
+    }
+
+    /* Bottom Layer */
+    .cake-layer.bottom {
+      width: 200px;
+      height: 80px;
+      background: linear-gradient(90deg, #6d4c41 0%, #8d6e63 50%, #5d4037 100%);
+      /* Chocolate */
+      border-radius: 50% 50% 10px 10px / 20px 20px 10px 10px;
+      z-index: 1;
+    }
+
+    /* Middle Layer */
+    .cake-layer.middle {
+      width: 160px;
+      height: 70px;
+      margin-bottom: -15px;
+      background: linear-gradient(90deg, #f48fb1 0%, #f8bbd0 50%, #f06292 100%);
+      /* Strawberry */
+      border-radius: 50% 50% 10px 10px / 20px 20px 10px 10px;
+      z-index: 2;
+    }
+
+    /* Top Layer */
+    .cake-layer.top {
+      width: 120px;
+      height: 60px;
+      margin-bottom: -15px;
+      background: linear-gradient(90deg, #fff9c4 0%, #fff59d 50%, #fff176 100%);
+      /* Vanilla */
+      border-radius: 50% 50% 10px 10px / 20px 20px 10px 10px;
+      z-index: 3;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+    }
+
+    /* Top Surface of Top Layer */
+    .cake-layer.top::before {
+      content: "";
+      position: absolute;
+      top: -10px;
+      width: 100%;
+      height: 20px;
+      border-radius: 50%;
+      background: #fff59d;
+      box-shadow: inset 0 -2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .cake-plate {
+      width: 240px;
+      height: 15px;
+      background: radial-gradient(ellipse at center, #e0e0e0 0%, #bdbdbd 100%);
+      border-radius: 50%;
+      margin-top: -10px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+      z-index: 0;
+      position: relative;
+    }
+
+    /* Candle */
+    .candle {
+      position: absolute;
+      bottom: 45px;
+      /* Position on top of top layer */
+      width: 16px;
+      height: 50px;
+      background: repeating-linear-gradient(45deg,
+          #fff 0,
+          #fff 5px,
+          #ff4081 5px,
+          #ff4081 10px);
+      border-radius: 4px;
+      box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+      z-index: 10;
+    }
+
+    .candle .wick {
+      position: absolute;
+      top: -8px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 2px;
+      height: 8px;
+      background: #333;
+    }
+
+    .flame {
+      position: absolute;
+      top: -25px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 16px;
+      height: 24px;
+      background: radial-gradient(ellipse at bottom, #ffeb3b 0%, #ff9800 50%, transparent 80%);
+      border-radius: 50% 50% 20% 20%;
+      filter: blur(1px);
+      animation: flameFlicker 0.1s infinite alternate;
+      box-shadow: 0 0 20px #ffeb3b, 0 0 40px #ff9800;
+      transform-origin: center bottom;
+    }
+
+    @keyframes flameFlicker {
+      0% {
+        transform: translateX(-50%) scale(1) rotate(-2deg);
+        opacity: 0.9;
+      }
+
+      100% {
+        transform: translateX(-50%) scale(1.1) rotate(2deg);
+        opacity: 1;
+      }
+    }
+
+    .flame.out {
+      animation: puffOut 0.5s forwards;
+    }
+
+    @keyframes puffOut {
+      0% {
+        transform: translateX(-50%) scale(1);
+        opacity: 1;
+      }
+
+      50% {
+        transform: translateX(-50%) scale(1.2);
+        opacity: 0.5;
+        background: #aaa;
+      }
+
+      100% {
+        transform: translateX(-50%) scale(0.5);
+        opacity: 0;
+      }
+    }
+
+    .after-blow-note {
+      margin-top: 18px;
+      font-size: 0.9rem;
+      opacity: 0;
+      transition: opacity 0.6s ease;
+    }
+
+    .after-blow-note.visible {
+      opacity: 1;
+    }
+
+    /* -------- Screen 3: Happy Birthday text -------- */
+
+    #screen-wish h1 {
+      font-size: 1.7rem;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+
+    #screen-wish h2 {
+      font-size: 1.1rem;
+      font-weight: 400;
+      opacity: 0.9;
+      margin-bottom: 18px;
+    }
+
+    .crown {
+      font-size: 2rem;
+      margin-bottom: 10px;
+    }
+
+    /* -------- Screen 4: Messenger on Horse -------- */
+
+    #screen-messenger {
+      padding-inline: 16px;
+      justify-content: space-between;
+    }
+
+    .messenger-stage {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+    }
+
+    .ground {
+      width: 100%;
+      height: 4px;
+    }
+
+    .scroll::after {
+      right: -6px;
+      border-radius: 999px;
+    }
+
+    .scroll:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.8);
+    }
+
+    .scroll:active {
+      transform: translateY(1px) scale(0.99);
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.9);
+    }
+
+    .messenger-text {
+      font-size: 0.95rem;
+      opacity: 0.85;
+      margin-top: 18px;
+    }
+
+    /* -------- Letter Modal -------- */
+
+    .modal-backdrop {
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.65);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.35s ease;
+      padding: 18px;
+    }
+
+    .modal-backdrop.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .modal {
+      max-width: 480px;
+      width: 100%;
+      background: radial-gradient(circle at top, #fdf7ea 0, #e8d7b8 55%, #d3bf97 100%);
+      border-radius: 18px;
+      padding: 20px 18px 16px 18px;
+      box-shadow: 0 10px 32px rgba(0, 0, 0, 0.7);
+      border: 2px solid #b59861;
+      position: relative;
+    }
+
+    .modal::before,
+    .modal::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      height: 14px;
+      background: repeating-linear-gradient(90deg,
+          rgba(102, 74, 34, 0.35) 0,
+          rgba(102, 74, 34, 0.35) 16px,
+          transparent 16px,
+          transparent 32px);
+      opacity: 0.6;
+    }
+
+    .modal::before {
+      top: 12px;
+    }
+
+    .modal::after {
+      bottom: 12px;
+    }
+
+    .modal-content {
+      position: relative;
+      padding: 22px 12px 10px 12px;
+      max-height: 60vh;
+      overflow-y: auto;
+    }
+
+    .letter-heading {
+      font-family: "Cinzel", serif;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      font-size: 0.82rem;
+      color: #5a4120;
+      margin-bottom: 10px;
+      text-align: center;
+    }
+
+    .letter-body {
+      font-family: "Playfair Display", serif;
+      font-size: 0.98rem;
+      line-height: 1.6;
+      color: #3e2a14;
+      text-align: left;
+      white-space: pre-line;
+    }
+
+    .letter-signoff {
+      margin-top: 14px;
+      font-style: italic;
+      text-align: right;
+    }
+
+    .modal-footer {
+      text-align: center;
+      margin-top: 8px;
+    }
+
+    .secondary-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 8px 18px;
+      border-radius: 999px;
+      border: 1px solid #8c6a35;
+      background: rgba(255, 255, 255, 0.1);
+      color: #4a3110;
+      font-size: 0.88rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .secondary-btn:hover {
+      background: rgba(255, 255, 255, 0.28);
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
+    }
+
+    .secondary-btn:active {
+      transform: translateY(1px) scale(0.98);
+      box-shadow: none;
+    }
+
+    /* -------- Screen 5: Final message -------- */
+
+    #screen-final h1 {
+      font-size: 1.6rem;
+      margin-bottom: 12px;
+    }
+
+    #screen-final p {
+      font-size: 0.98rem;
+      opacity: 0.9;
+    }
+
+    /* Mobile tweaks */
+    @media (max-width: 480px) {
+      .app {
+        border-radius: 0;
+        max-height: none;
+      }
+
+      #screen-intro h1,
+      #screen-wish h1,
+      #screen-final h1 {
+        font-size: 1.4rem;
+      }
+
+      .cake {
+        width: 140px;
+      }
+
+      .cake-plate {
+        width: 160px;
+      }
+
+      .messenger {
+        font-size: 2.5rem;
+      }
+
+      .modal {
+        padding-inline: 14px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="app">
+    <div class="royal-frame"></div>
+    <div class="subtle-glow"></div>
+    <div class="sparkles">
+      <div class="sparkle"></div>
+      <div class="sparkle"></div>
+      <div class="sparkle"></div>
+      <div class="sparkle"></div>
+      <div class="sparkle"></div>
+    </div>
+
+    <!-- Screen 1: Intro -->
+    <section id="screen-intro" class="screen active">
+      <h2>Presenting a royal celebration</h2>
+      <div class="tiny-line"></div>
+      <h1>Her Majesty&apos;s Birthday</h1>
+      <p class="hint">A humble tribute, from one loyal subject.</p>
+      <button id="btn-start" class="primary-btn">
+        Commence the celebrations
+      </button>
+    </section>
+
+    <!-- Screen 2: Cake + Candles -->
+    <section id="screen-cake" class="screen">
+      <div class="countdown-text" id="countdown-text">
+        Blow the candles in 3...
+      </div>
+
+      <div class="cake-wrapper">
+        <div class="cake">
+          <div class="cake-layer top">
+            <div class="candle">
+              <div class="wick"></div>
+              <div class="flame" id="candle-flame"></div>
+            </div>
+          </div>
+          <div class="cake-layer middle"></div>
+          <div class="cake-layer bottom"></div>
+          <div class="cake-plate"></div>
+        </div>
+      </div>
+
+      <div class="after-blow-note" id="after-blow-note">
+        Make a wish... ✨
+      </div>
+    </section>
+
+    <!-- Screen 3: Happy Birthday text -->
+    <section id="screen-wish" class="screen">
+      <div class="crown">👑</div>
+      <h1>Happy Birthday, <span id="friend-name">[Her Name]</span>!</h1>
+      <h2>May your day be as grand as your kingdom.</h2>
+      <p class="hint">
+        Tap to continue
+      </p>
+      <button id="btn-to-messenger" class="primary-btn">
+        Continue
+      </button>
+    </section>
+
+    <!-- Screen 4: Messenger on Horse -->
+    <section id="screen-messenger" class="screen">
+      <div class="messenger-stage">
+        <div class="messenger" id="messenger">
+          <span aria-hidden="true">🏇</span>
+          <div class="scroll" id="scroll">
+            Tap to open the royal decree
+          </div>
+        </div>
+        <div class="ground"></div>
+        <p class="messenger-text">
+          A royal messenger has arrived with a letter just for you.
+        </p>
+      </div>
+    </section>
+
+    <!-- Letter Modal -->
+    <div id="modal-backdrop" class="modal-backdrop">
+      <div class="modal">
+        <div class="modal-content">
+          <div class="letter-heading">
+            By Royal Decree
+          </div>
+          <div class="letter-body" id="letter-body">
+            Dear [Her Name],
+
+            On this most auspicious of days, it is hereby declared that you are entitled to:
+            – Unlimited smiles,
+            – Uninterrupted laughter,
+            – And a lifetime supply of good memories.
+
+            May your courage remain unshaken, your curiosity ever alive, and your dreams far too big to fit inside the
+            walls of any kingdom.
+
+            Happy Birthday, Your Highness.
+
+          </div>
+          <div class="letter-signoff">
+            — From your ever-loyal messenger 💌
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button id="btn-close-letter" class="secondary-btn">
+            Close the letter
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Screen 5: Final message -->
+    <section id="screen-final" class="screen">
+      <h1>Have a great day! ✨</h1>
+      <p>
+        And once again, Happy Birthday. 🎂
+      </p>
+    </section>
+  </div>
+
+  <script>
+    const screens = {
+      intro: document.getElementById("screen-intro"),
+      cake: document.getElementById("screen-cake"),
+      wish: document.getElementById("screen-wish"),
+      messenger: document.getElementById("screen-messenger"),
+      final: document.getElementById("screen-final")
+    };
+
+    function showScreen(name) {
+      Object.values(screens).forEach(s => s.classList.remove("active"));
+      screens[name].classList.add("active");
+
+      // Trigger messenger animation when entering that screen
+      if (name === "messenger") {
+        const messenger = document.getElementById("messenger");
+        messenger.classList.remove("animate");
+        // force reflow so the animation restarts
+        void messenger.offsetWidth;
+        messenger.classList.add("animate");
+      }
+    }
+
+    // Screen 1 -> Screen 2
+    document.getElementById("btn-start").addEventListener("click", () => {
+      showScreen("cake");
+      startCandleSequence();
+    });
+
+    function startCandleSequence() {
+      const countdownEl = document.getElementById("countdown-text");
+      const flame = document.getElementById("candle-flame");
+      const note = document.getElementById("after-blow-note");
+
+      let count = 3;
+      countdownEl.textContent = `Blow the candles in ${count}...`;
+
+      const interval = setInterval(() => {
+        count--;
+        if (count > 0) {
+          countdownEl.textContent = `Blow the candles in ${count}...`;
+        } else {
+          countdownEl.textContent = `Blow the candles in 1...`;
+          clearInterval(interval);
+
+          // Small pause at "1" then blow out
+          setTimeout(() => {
+            countdownEl.textContent = "Blow!";
+            flame.classList.add("out");
+            note.classList.add("visible");
+
+            // Move to next screen after a moment
+            setTimeout(() => {
+              showScreen("wish");
+            }, 1800);
+          }, 800);
+        }
+      }, 1000);
+    }
+
+    // Screen 3 -> Screen 4
+    document.getElementById("btn-to-messenger").addEventListener("click", () => {
+      showScreen("messenger");
+    });
+
+    // Scroll click -> open modal
+    document.getElementById("scroll").addEventListener("click", () => {
+      document.getElementById("modal-backdrop").classList.add("open");
+    });
+
+    // Close modal -> go to final screen
+    document.getElementById("btn-close-letter").addEventListener("click", () => {
+      document.getElementById("modal-backdrop").classList.remove("open");
+      showScreen("final");
+    });
+
+    // Optional: click on dark backdrop also closes
+    document.getElementById("modal-backdrop").addEventListener("click", (e) => {
+      if (e.target.id === "modal-backdrop") {
+        document.getElementById("modal-backdrop").classList.remove("open");
+        showScreen("final");
+      }
+    });
+
+    // TODO: Replace [Her Name] and letter text as needed.
+    // Example:
+    // document.getElementById("friend-name").textContent = "Aditi";
+    // document.getElementById("letter-body").textContent = "Your custom message...";
+  </script>
+</body>
+
+</html>
