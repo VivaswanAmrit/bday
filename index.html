@@ -305,89 +305,84 @@
       }
     }
 
-    /* Common Layer Styles */
-    .cake-layer {
-      position: relative;
-      background: linear-gradient(to right, #eacda3, #d6ae7b);
-      /* Sponge color base */
-      border-radius: 10px;
-      box-shadow:
-        inset 0 0 20px rgba(0, 0, 0, 0.1),
-        5px 5px 15px rgba(0, 0, 0, 0.3);
-    }
+ /* Common Layer Styles */
+.cake-layer {
+  position: relative;
+  background: linear-gradient(to right, #f5d7b5, #efc48f); /* BRIGHTER sponge */
+  border-radius: 10px;
+  box-shadow:
+    inset 0 0 20px rgba(0, 0, 0, 0.1),
+    5px 5px 15px rgba(0, 0, 0, 0.3);
+}
 
-    /* Frosting Drips */
-    .cake-layer::after {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 25px;
-      background: linear-gradient(to bottom, #fff0f5 60%, transparent);
-      background-size: 20px 40px;
-      background-repeat: repeat-x;
-      border-radius: 10px 10px 50% 50%;
-      mask-image: radial-gradient(circle at 10px 0, black 10px, transparent 11px),
-        linear-gradient(to bottom, black 10px, transparent 10px);
-      mask-size: 20px 20px;
-      mask-repeat: repeat-x;
-      /* Simplified frosting look for better compatibility */
-      background:
-        radial-gradient(circle at 50% 100%, #fff0f5 8px, transparent 9px) 0 0 / 20px 20px repeat-x,
-        linear-gradient(#fff0f5, #fff0f5);
-      background-size: 20px 15px, 100% 10px;
-      background-position: 0 10px, 0 0;
-      background-repeat: repeat-x, no-repeat;
-      filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.1));
-    }
+/* Frosting Drips */
+.cake-layer::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 25px;
+  background: linear-gradient(to bottom, #fff5fb 60%, transparent);
+  background-size: 20px 40px;
+  background-repeat: repeat-x;
+  border-radius: 10px 10px 50% 50%;
+  mask-image: radial-gradient(circle at 10px 0, black 10px, transparent 11px),
+    linear-gradient(to bottom, black 10px, transparent 10px);
+  mask-size: 20px 20px;
+  mask-repeat: repeat-x;
+  background:
+    radial-gradient(circle at 50% 100%, #fff5fb 8px, transparent 9px) 0 0 / 20px 20px repeat-x,
+    linear-gradient(#fff5fb, #fff5fb);
+  background-size: 20px 15px, 100% 10px;
+  background-position: 0 10px, 0 0;
+  background-repeat: repeat-x, no-repeat;
+  filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.1));
+}
 
-    /* Bottom Layer */
-    .cake-layer.bottom {
-      width: 200px;
-      height: 80px;
-      background: linear-gradient(90deg, #6d4c41 0%, #8d6e63 50%, #5d4037 100%);
-      /* Chocolate */
-      border-radius: 50% 50% 10px 10px / 20px 20px 10px 10px;
-      z-index: 1;
-    }
+/* Bottom Layer */
+.cake-layer.bottom {
+  width: 200px;
+  height: 80px;
+  background: linear-gradient(90deg, #a86a55 0%, #c48f7a 50%, #8d4b3a 100%); /* BRIGHTER chocolate */
+  border-radius: 50% 50% 10px 10px / 20px 20px 10px 10px;
+  z-index: 1;
+}
 
-    /* Middle Layer */
-    .cake-layer.middle {
-      width: 160px;
-      height: 70px;
-      margin-bottom: -15px;
-      background: linear-gradient(90deg, #f48fb1 0%, #f8bbd0 50%, #f06292 100%);
-      /* Strawberry */
-      border-radius: 50% 50% 10px 10px / 20px 20px 10px 10px;
-      z-index: 2;
-    }
+/* Middle Layer */
+.cake-layer.middle {
+  width: 160px;
+  height: 70px;
+  margin-bottom: -15px;
+  background: linear-gradient(90deg, #ff9fc4 0%, #ffd0e1 50%, #ff6fa3 100%); /* BRIGHTER strawberry */
+  border-radius: 50% 50% 10px 10px / 20px 20px 10px 10px;
+  z-index: 2;
+}
 
-    /* Top Layer */
-    .cake-layer.top {
-      width: 120px;
-      height: 60px;
-      margin-bottom: -15px;
-      background: linear-gradient(90deg, #fff9c4 0%, #fff59d 50%, #fff176 100%);
-      /* Vanilla */
-      border-radius: 50% 50% 10px 10px / 20px 20px 10px 10px;
-      z-index: 3;
-      display: flex;
-      justify-content: center;
-      align-items: flex-start;
-    }
+/* Top Layer */
+.cake-layer.top {
+  width: 120px;
+  height: 60px;
+  margin-bottom: -15px;
+  background: linear-gradient(90deg, #fffde3 0%, #fff9b8 50%, #fff27a 100%); /* BRIGHTER vanilla */
+  border-radius: 50% 50% 10px 10px / 20px 20px 10px 10px;
+  z-index: 3;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
 
-    /* Top Surface of Top Layer */
-    .cake-layer.top::before {
-      content: "";
-      position: absolute;
-      top: -10px;
-      width: 100%;
-      height: 20px;
-      border-radius: 50%;
-      background: #fff59d;
-      box-shadow: inset 0 -2px 5px rgba(0, 0, 0, 0.1);
-    }
+/* Top Surface of Top Layer */
+.cake-layer.top::before {
+  content: "";
+  position: absolute;
+  top: -10px;
+  width: 100%;
+  height: 20px;
+  border-radius: 50%;
+  background: #fff9b8;
+  box-shadow: inset 0 -2px 5px rgba(0, 0, 0, 0.1);
+}
 
     .cake-plate {
       width: 240px;
