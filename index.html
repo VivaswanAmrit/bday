@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="UTF-8" />
-  <title>Royal Birthday</title>
+  <title>Happy Birthday Kshitija</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <!-- Google Fonts for royal / old-school vibe -->
   <link
@@ -305,84 +305,88 @@
       }
     }
 
- /* Common Layer Styles */
-.cake-layer {
-  position: relative;
-  background: linear-gradient(to right, #f5d7b5, #efc48f); /* BRIGHTER sponge */
-  border-radius: 10px;
-  box-shadow:
-    inset 0 0 20px rgba(0, 0, 0, 0.1),
-    5px 5px 15px rgba(0, 0, 0, 0.3);
-}
+    /* Common Layer Styles */
+    .cake-layer {
+      position: relative;
+      background: linear-gradient(to right, #f5d7b5, #efc48f);
+      /* BRIGHTER sponge */
+      border-radius: 10px;
+      box-shadow:
+        inset 0 0 20px rgba(0, 0, 0, 0.1),
+        5px 5px 15px rgba(0, 0, 0, 0.3);
+    }
 
-/* Frosting Drips */
-.cake-layer::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 25px;
-  background: linear-gradient(to bottom, #fff5fb 60%, transparent);
-  background-size: 20px 40px;
-  background-repeat: repeat-x;
-  border-radius: 10px 10px 50% 50%;
-  mask-image: radial-gradient(circle at 10px 0, black 10px, transparent 11px),
-    linear-gradient(to bottom, black 10px, transparent 10px);
-  mask-size: 20px 20px;
-  mask-repeat: repeat-x;
-  background:
-    radial-gradient(circle at 50% 100%, #fff5fb 8px, transparent 9px) 0 0 / 20px 20px repeat-x,
-    linear-gradient(#fff5fb, #fff5fb);
-  background-size: 20px 15px, 100% 10px;
-  background-position: 0 10px, 0 0;
-  background-repeat: repeat-x, no-repeat;
-  filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.1));
-}
+    /* Frosting Drips */
+    .cake-layer::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 25px;
+      background: linear-gradient(to bottom, #fff5fb 60%, transparent);
+      background-size: 20px 40px;
+      background-repeat: repeat-x;
+      border-radius: 10px 10px 50% 50%;
+      mask-image: radial-gradient(circle at 10px 0, black 10px, transparent 11px),
+        linear-gradient(to bottom, black 10px, transparent 10px);
+      mask-size: 20px 20px;
+      mask-repeat: repeat-x;
+      background:
+        radial-gradient(circle at 50% 100%, #fff5fb 8px, transparent 9px) 0 0 / 20px 20px repeat-x,
+        linear-gradient(#fff5fb, #fff5fb);
+      background-size: 20px 15px, 100% 10px;
+      background-position: 0 10px, 0 0;
+      background-repeat: repeat-x, no-repeat;
+      filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.1));
+    }
 
-/* Bottom Layer */
-.cake-layer.bottom {
-  width: 200px;
-  height: 80px;
-  background: linear-gradient(90deg, #a86a55 0%, #c48f7a 50%, #8d4b3a 100%); /* BRIGHTER chocolate */
-  border-radius: 50% 50% 10px 10px / 20px 20px 10px 10px;
-  z-index: 1;
-}
+    /* Bottom Layer */
+    .cake-layer.bottom {
+      width: 200px;
+      height: 80px;
+      background: linear-gradient(90deg, #a86a55 0%, #c48f7a 50%, #8d4b3a 100%);
+      /* BRIGHTER chocolate */
+      border-radius: 50% 50% 10px 10px / 20px 20px 10px 10px;
+      z-index: 1;
+    }
 
-/* Middle Layer */
-.cake-layer.middle {
-  width: 160px;
-  height: 70px;
-  margin-bottom: -15px;
-  background: linear-gradient(90deg, #ff9fc4 0%, #ffd0e1 50%, #ff6fa3 100%); /* BRIGHTER strawberry */
-  border-radius: 50% 50% 10px 10px / 20px 20px 10px 10px;
-  z-index: 2;
-}
+    /* Middle Layer */
+    .cake-layer.middle {
+      width: 160px;
+      height: 70px;
+      margin-bottom: -15px;
+      background: linear-gradient(90deg, #ff9fc4 0%, #ffd0e1 50%, #ff6fa3 100%);
+      /* BRIGHTER strawberry */
+      border-radius: 50% 50% 10px 10px / 20px 20px 10px 10px;
+      z-index: 2;
+    }
 
-/* Top Layer */
-.cake-layer.top {
-  width: 120px;
-  height: 60px;
-  margin-bottom: -15px;
-  background: linear-gradient(90deg, #fffde3 0%, #fff9b8 50%, #fff27a 100%); /* BRIGHTER vanilla */
-  border-radius: 50% 50% 10px 10px / 20px 20px 10px 10px;
-  z-index: 3;
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-}
+    /* Top Layer */
+    .cake-layer.top {
+      width: 120px;
+      height: 60px;
+      margin-bottom: -15px;
+      background: linear-gradient(90deg, #fffde3 0%, #fff9b8 50%, #fff27a 100%);
+      /* BRIGHTER vanilla */
+      border-radius: 50% 50% 10px 10px / 20px 20px 10px 10px;
+      z-index: 3;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+    }
 
-/* Top Surface of Top Layer */
-.cake-layer.top::before {
-  content: "";
-  position: absolute;
-  top: -10px;
-  width: 100%;
-  height: 20px;
-  border-radius: 50%;
-  background: #fff9b8;
-  box-shadow: inset 0 -2px 5px rgba(0, 0, 0, 0.1);
-}
+    /* Top Surface of Top Layer */
+    .cake-layer.top::before {
+      content: "";
+      position: absolute;
+      top: -10px;
+      width: 100%;
+      height: 20px;
+      border-radius: 50%;
+      background: #fff9b8;
+      box-shadow: inset 0 -2px 5px rgba(0, 0, 0, 0.1);
+    }
 
     .cake-plate {
       width: 240px;
@@ -720,10 +724,10 @@
 
     <!-- Screen 1: Intro -->
     <section id="screen-intro" class="screen active">
-      <h2>Presenting a royal celebration</h2>
+      <h2>Presenting a short celebration</h2>
       <div class="tiny-line"></div>
-      <h1>Her Majesty&apos;s Birthday</h1>
-      <p class="hint">A humble tribute, from one loyal subject.</p>
+      <h1>Kshitija&apos;s Birthday</h1>
+      <p class="hint">Wishing you a very Happy birthday!</p>
       <button id="btn-start" class="primary-btn">
         Commence the celebrations
       </button>
@@ -757,8 +761,8 @@
     <!-- Screen 3: Happy Birthday text -->
     <section id="screen-wish" class="screen">
       <div class="crown">👑</div>
-      <h1>Happy Birthday, <span id="friend-name">[Her Name]</span>!</h1>
-      <h2>May your day be as grand as your kingdom.</h2>
+      <h1>Happy Birthday, <span id="friend-name">Kshitija</span>!</h1>
+      <h2>May your day be as beautiful as your smile.</h2>
       <p class="hint">
         Tap to continue
       </p>
@@ -773,12 +777,12 @@
         <div class="messenger" id="messenger">
           <span aria-hidden="true">🏇</span>
           <div class="scroll" id="scroll">
-            Tap to open the royal decree
+            Tap to open the message
           </div>
         </div>
         <div class="ground"></div>
         <p class="messenger-text">
-          A royal messenger has arrived with a letter just for you.
+          A messenger has arrived with a letter just for you.
         </p>
       </div>
     </section>
@@ -788,7 +792,7 @@
       <div class="modal">
         <div class="modal-content">
           <div class="letter-heading">
-            By Royal Decree
+            
           </div>
           <div class="letter-body" id="letter-body">
             Dear [Her Name],
@@ -805,7 +809,7 @@
 
           </div>
           <div class="letter-signoff">
-            — From your ever-loyal messenger 💌
+            — From Vivaswan 🧧 
           </div>
         </div>
         <div class="modal-footer">
